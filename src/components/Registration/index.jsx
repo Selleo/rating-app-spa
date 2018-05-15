@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Formik } from "formik";
 import "../../stylesheets/index.scss";
+import axios from "axios";
 
 class Registration extends Component {
   render() {
@@ -30,6 +31,12 @@ class Registration extends Component {
           validate={values => {
             // same as above, but feel free to move this into a class method now.
             let errors = {};
+            if (!values.first_name) {
+              errors.first_name = "First name must be set";
+            }
+            if (!values.last_name) {
+              errors.last_name = "Last name must be set";
+            }
             if (!values.email) {
               errors.email = "Required";
             } else if (
@@ -37,24 +44,19 @@ class Registration extends Component {
             ) {
               errors.email = "Invalid email address";
             }
+            if (values.password !== values.password_confirmation) {
+              errors.password = "Passwords does not match";
+            }
             return errors;
           }}
           onSubmit={(
             values,
             { setSubmitting, setErrors /* setValues and other goodies */ }
           ) => {
-            // LoginToMyApp(values).then(
-            //   user => {
-            //     setSubmitting(false);
-            //     // do whatevs...
-            //     // props.updateUser(user)
-            //   },
-            //   errors => {
-            //     setSubmitting(false);
-            //     // Maybe transform your API's errors into the same shape as Formik's
-            //     setErrors(transformMyApiErrors(errors));
-            //   }
-            // );
+            return axios
+              .post("/register", values)
+              .then(() => this.props.storeUser(values))
+              .catch(err => {});
           }}
           render={({
             values,
