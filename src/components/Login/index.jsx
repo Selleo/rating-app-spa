@@ -1,24 +1,20 @@
 import React, { Component } from "react";
 import "./index.scss";
 import { Formik } from "formik";
+import { connect } from "react-redux";
+import { storeUser } from "../../store/user/actions";
+import PropTypes from "proptypes";
+import _ from "lodash";
+import Home from "./../Home";
+import axios from "axios";
 
 class Login extends Component {
   render() {
     return (
       <div>
+        <div>{_.get(this, "props.user.email")}</div>
         <h1>Login</h1>
-        {/*
-      The benefit of the render prop approach is that you have full access to React's
-      state, props, and composition model. Thus there is no need to map outer props
-      to values...you can just set the initial values, and if they depend on props / state
-      then--boom--you can directly access to props / state.
-
-      The render prop accepts your inner form component, which you can define separately or inline
-      totally up to you:
-      - `<Formik render={props => <form>...</form>}>`
-      - `<Formik component={InnerForm}>`
-      - `<Formik>{props => <form>...</form>}</Formik>` (identical to as render, just written differently)
-    */}
+        <Home />
         <Formik
           initialValues={{
             email: "",
@@ -40,18 +36,10 @@ class Login extends Component {
             values,
             { setSubmitting, setErrors /* setValues and other goodies */ }
           ) => {
-            // LoginToMyApp(values).then(
-            //   user => {
-            //     setSubmitting(false);
-            //     // do whatevs...
-            //     // props.updateUser(user)
-            //   },
-            //   errors => {
-            //     setSubmitting(false);
-            //     // Maybe transform your API's errors into the same shape as Formik's
-            //     setErrors(transformMyApiErrors(errors));
-            //   }
-            // );
+            return axios
+              .post("/login", values)
+              .then(() => this.props.storeUser(values))
+              .catch(err => {});
           }}
           render={({
             values,
@@ -91,4 +79,20 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+const mapDispatchToProps = {
+  storeUser
+};
+
+Login.propTypes = {
+  user: PropTypes.shape({
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
+    email: PropTypes.string
+  })
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

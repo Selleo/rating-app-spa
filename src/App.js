@@ -1,10 +1,22 @@
-import React, { Component, Fragment } from 'react';
-import { Route } from 'react-router'
-import Home from './components/Home'
+import React, { Component, Fragment } from "react";
+import { Route } from "react-router";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { get } from "lodash";
+import axios from "axios";
+import Home from "./components/Home";
 import Login from "./components/Login";
 import Registration from "./components/Registration";
 import Items from './components/Items';
+import Private from "./components/Private";
+import PrivateRoute from "./hocs/PrivateRoute";
 import "./App.css";
+
+global.axios = axios.create({
+  baseURL: "https://some-domain.com/api/",
+  timeout: 1000,
+  headers: { "X-Custom-Header": "foobar" }
+});
 
 class App extends Component {
   render() {
@@ -14,9 +26,18 @@ class App extends Component {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Registration} />
         <Route path="/items" component={Items} />
+        <PrivateRoute
+          path="/private"
+          component={Private}
+          authenticated={get(this, "props.user.email")}
+        />
       </Fragment>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+export default withRouter(connect(mapStateToProps)(App));
