@@ -3,7 +3,6 @@ import { Route } from "react-router";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { get } from "lodash";
-import axios from "axios";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Registration from "./components/Registration";
@@ -11,12 +10,6 @@ import Items from './components/Items';
 import Private from "./components/Private";
 import PrivateRoute from "./hocs/PrivateRoute";
 import "./App.css";
-
-global.axios = axios.create({
-  baseURL: "https://some-domain.com/api/",
-  timeout: 1000,
-  headers: { "X-Custom-Header": "foobar" }
-});
 
 class App extends Component {
   render() {

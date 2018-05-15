@@ -1,12 +1,23 @@
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import ItemForm from '../ItemForm';
+import { createItem } from '../../../store/item/actions';
 
-export default class ItemCreate extends PureComponent {
-  saveItem = () => Promise.resolve().then(() => ({
-    data: 'hello world'
+class ItemCreate extends PureComponent {
+  saveItem = (values) => Promise.resolve().then(() => ({
+    data: {
+      item: {
+        id: new Date().getTime(),
+        ...values,
+      }
+    }
   }));
 
-  handleSavedItem = () => console.log('Saved!')
+  handleSavedItem = (item) => {
+    this.props.createItem(item);
+    this.props.push('/items')
+  }
 
   render() {
     return (
@@ -21,3 +32,10 @@ export default class ItemCreate extends PureComponent {
     );
   }
 }
+
+const mapDispatchToProps = {
+  createItem,
+  push,
+}
+
+export default connect(undefined, mapDispatchToProps)(ItemCreate);

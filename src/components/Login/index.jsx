@@ -1,18 +1,25 @@
 import React, { Component } from "react";
-import "./index.scss";
 import { Formik } from "formik";
 import { connect } from "react-redux";
-import { storeUser } from "../../store/user/actions";
+import { get } from "lodash";
+import { push } from 'react-router-redux'
 import PropTypes from "proptypes";
-import _ from "lodash";
+import yup from 'yup';
+import client from '../../client';
+import { storeUser } from "../../store/user/actions";
 import Home from "./../Home";
-import axios from "axios";
+import "./index.scss";
 
 class Login extends Component {
+  validationSchema = yup.object({
+    email: yup.string().email().required(),
+    password: yup.string().required(),
+  })
+
   render() {
     return (
       <div>
-        <div>{_.get(this, "props.user.email")}</div>
+        <div>{get(this, "props.user.email")}</div>
         <h1>Login</h1>
         <Home />
         <Formik
@@ -20,26 +27,22 @@ class Login extends Component {
             email: "",
             password: ""
           }}
-          validate={values => {
-            // same as above, but feel free to move this into a class method now.
-            let errors = {};
-            if (!values.email) {
-              errors.email = "Required";
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-            ) {
-              errors.email = "Invalid email address";
+          validationSchema={this.validationSchema}
+          onSubmit={async (values, actions) => {
+            actions.setSubmitting(true);
+            try {
+              const response = await client.post("/login", values);
+              this.props.storeUser(response.data.user);
+              this.props.push('/')
+            } catch (err) {
+              const { response = {} } = err;
+
+              if (response.status === 422) {
+                actions.setErrors(response.data.errors);
+              }
+            } finally {
+              actions.setSubmitting(false);
             }
-            return errors;
-          }}
-          onSubmit={(
-            values,
-            { setSubmitting, setErrors /* setValues and other goodies */ }
-          ) => {
-            return axios
-              .post("/login", values)
-              .then(() => this.props.storeUser(values))
-              .catch(err => {});
           }}
           render={({
             values,
@@ -51,23 +54,26 @@ class Login extends Component {
             isSubmitting
           }) => (
             <form onSubmit={handleSubmit}>
-              <input
-                type="email"
-                name="email"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.email}
-              />
-              {touched.email && errors.email && <div>{errors.email}</div>}
-              <input
-                type="password"
-                name="password"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password}
-              />
-              {touched.password &&
-                errors.password && <div>{errors.password}</div>}
+              <div>
+                <input
+                  type="email"
+                  name="email"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                />
+                {touched.email && errors.email && <div>{errors.email}</div>}
+              </div>
+              <div>
+                <input
+                  type="password"
+                  name="password"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.password}
+                />
+                {touched.password && errors.password && <div>{errors.password}</div>}
+              </div>
               <button type="submit" disabled={isSubmitting}>
                 Submit
               </button>
@@ -84,7 +90,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  storeUser
+  storeUser,
+  push,
 };
 
 Login.propTypes = {
