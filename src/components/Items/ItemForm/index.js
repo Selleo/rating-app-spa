@@ -52,94 +52,112 @@ const validationSchema = yup.object({
 })
 
 const ItemForm = ({ saveItem, onItemSaved, initialValues }) => (
-  <Formik
-    initialValues={initialValues}
-    validationSchema={validationSchema}
-    onSubmit={async (values, actions) => {
-      try {
-        const response = await saveItem(values);
-        onItemSaved(response.data.item);
-      } catch (err) {
-        const { response = {} } = err;
+  <div class="wrapper wrapper__presentation">
+    <header class="header">
+      <div class="header__image" />
 
-        if (response.status === 422) {
-          actions.setError(err.response.data.item);
-        }
+      <div class="header__title">
+        <div class="header__text">Add workshop / presentation</div>
 
-        console.error(err);
-      }
-    }}
-  >
-    {({ handleSubmit, handleChange, values, errors }) => (
-      <form onSubmit={handleSubmit}>
-        <div>
-          <h2>Item type</h2>
-          {itemTypes.map(({ value, label }) => (
-            <label key={value}>
-              <input
-                type="radio"
-                name="type"
-                value={value}
-                onChange={handleChange}
-                checked={values.type === value}
-              />
-              {label}
-            </label>
-          ))}
-        </div>
+      </div>
+    </header>
+    <div class="login">
+      <div class="login__container">
 
-        <div>
-          <h2>Item duration</h2>
-          {durations[values.type].map(({ value, label }) => (
-            <label key={value}>
-              <input
-                name="duration"
-                type="radio"
-                value={value}
-                checked={values.duration === value}
-                onChange={handleChange}
-              />
-              {label}
-            </label>
-          ))}
-        </div>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={async (values, actions) => {
+            try {
+              const response = await saveItem(values);
+              onItemSaved(response.data.item);
+            } catch (err) {
+              const { response = {} } = err;
 
-        <div>
-          <label>
-            <div>Topic</div>
+              if (response.status === 422) {
+                actions.setError(err.response.data.item);
+              }
 
-            <input
-              type="text"
-              name="topic"
-              value={values.topic}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
+              console.error(err);
+            }
+          }}
+        >
+          {({ handleSubmit, handleChange, values, errors }) => (
+            <form onSubmit={handleSubmit}>
+              <div>
+                <h2>Submit your proposal</h2>
+                {itemTypes.map(({ value, label }) => (
+                  <label key={value}>
+                    <input
+                      type="radio"
+                      name="type"
+                      value={value}
+                      onChange={handleChange}
+                      checked={values.type === value}
+                    />
+                    {label}
+                  </label>
+                ))}
+              </div>
 
-        <div>
-          <div>
-            <label htmlFor="description">
-              Description
-            </label>
-          </div>
+              <div>
+                <h2>Session duration</h2>
+                {durations[values.type].map(({ value, label }) => (
+                  <label key={value}>
+                    <input
+                      name="duration"
+                      type="radio"
+                      value={value}
+                      checked={values.duration === value}
+                      onChange={handleChange}
+                    />
+                    {label}
+                  </label>
+                ))}
+              </div>
 
-          <textarea
-            id="description"
-            name="description"
-            value={values.description}
-            onChange={handleChange}
-          />
-        </div>
+              <div>
+                <label className="topic">
+                  <div>Topic</div>
 
-        <div>
-          <button type="submit">
-            Submit
-          </button>
-        </div>
-      </form>
-    )}
-  </Formik>
+                  <input
+                    type="text"
+                    name="topic"
+                    value={values.topic}
+                    onChange={handleChange}
+                    className="input-text"
+                  />
+                </label>
+              </div>
+
+              <div>
+                <div>
+                  <label htmlFor="description">
+                    Description
+                  </label>
+                </div>
+
+                <textarea
+                  id="description"
+                  name="description"
+                  value={values.description}
+                  onChange={handleChange}
+                  className="input-text"
+                />
+              </div>
+
+              <div>
+                <button type="submit">
+                  Submit
+                </button>
+              </div>
+            </form>
+          )}
+        </Formik>
+
+      </div>
+    </div>
+  </div>
 );
 
 ItemForm.defaultProps = {

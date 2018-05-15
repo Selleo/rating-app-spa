@@ -41,93 +41,106 @@ class Registration extends Component {
 
   render() {
     return (
-      <div className="registration">
-        <h1>Registration</h1>
-        <Formik
-          initialValues={{
-            first_name: "",
-            last_name: "",
-            email: "",
-            password: "",
-            password_confirmation: ""
-          }}
-          validationSchema={this.validationSchema}
-          onSubmit={async (values, actions) => {
-            actions.setSubmitting(true);
-            try {
-              const response = await client.post("/register", values);
-              this.props.storeUser(response.data);
-              this.props.push("/");
-            } catch (err) {
-              const { response = {} } = err;
+      <div class="wrapper wrapper__registration">
+        <header class="header">
+          <div class="header__image" />
 
-              if (response.status === 422) {
-                actions.setErrors(response.data.errors);
-              }
-            } finally {
-              actions.setSubmitting(false);
-            }
-          }}
-          render={({
-            values,
-            errors,
-            touched,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            isSubmitting
-          }) => (
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                name="first_name"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.first_name}
-                placeholder="First Name"
-              />
-              {touched.first_name &&
-                errors.first_name && <div>{errors.first_name}</div>}
-              <input
-                type="text"
-                name="last_name"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.last_name}
-                placeholder="Last Name"
-              />
-              {touched.last_name &&
-                errors.last_name && <div>{errors.last_name}</div>}
-              <input
-                type="email"
-                name="email"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.email}
-              />
-              {touched.email && errors.email && <div>{errors.email}</div>}
-              <input
-                type="password"
-                name="password"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password}
-              />
-              {touched.password &&
-                errors.password && <div>{errors.password}</div>}
-              <input
-                type="password"
-                name="password_confirmation"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password_confirmation}
-              />
-              <button type="submit" disabled={isSubmitting}>
-                Submit
-              </button>
-            </form>
-          )}
-        />
+          <div class="header__title">
+            <div class="header__text">Registration</div>
+          </div>
+        </header>
+        <div class="login">
+          <div class="login__container">
+            <Formik
+              initialValues={{
+                first_name: "",
+                last_name: "",
+                email: "",
+                password: "",
+                password_confirmation: ""
+              }}
+              validationSchema={this.validationSchema}
+              onSubmit={async (values, actions) => {
+                actions.setSubmitting(true);
+                try {
+                  const response = await client.post("/register", values);
+                  this.props.storeUser(response.data);
+                  this.props.push("/");
+                } catch (err) {
+                  const { response = {} } = err;
+
+                  if (response.status === 422) {
+                    actions.setErrors(response.data.errors);
+                  }
+                } finally {
+                  actions.setSubmitting(false);
+                }
+              }}
+              render={({
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                isSubmitting
+              }) => (
+                <form onSubmit={handleSubmit}>
+                  <input
+                    type="text"
+                    name="first_name"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.first_name}
+                    placeholder="First Name"
+                  />
+                  {touched.first_name &&
+                    errors.first_name && <div>{errors.first_name}</div>}
+                  <input
+                    type="text"
+                    name="last_name"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.last_name}
+                    placeholder="Last Name"
+                  />
+                  {touched.last_name &&
+                    errors.last_name && <div>{errors.last_name}</div>}
+                  <input
+                    type="email"
+                    name="email"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.email}
+                    placeholder="Email"
+                  />
+                  {touched.email && errors.email && <div>{errors.email}</div>}
+                  <input
+                    type="password"
+                    name="password"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.password}
+                    placeholder="Password"
+                  />
+                  <input
+                    type="password"
+                    name="password_confirmation"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.password_confirmation}
+                    placeholder="Password confirmation"
+                  />
+                  {touched.password &&
+                    errors.password && <div>{errors.password}</div>}
+                  <button type="submit" disabled={isSubmitting}>
+                    Submit
+                  </button>
+                </form>
+              )}
+            />
+          </div>
+        </div>
       </div>
     );
   }
