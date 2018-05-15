@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+import "./index.scss";
 
 class Login extends Component {
   render() {
-    <div>Login</div>;
+    return <p>Login</p>;
   }
 }
+
+export default Login;

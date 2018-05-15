@@ -5,3 +5,5 @@ class Registration extends Component {
     <div>Registration</div>;
   }
 }
+
+export default Registration;
