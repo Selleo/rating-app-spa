@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Formik } from "formik";
-import "./index.scss";
+import "../../stylesheets/index.scss";
 
 class Registration extends Component {
   render() {
     return (
-      <div>
+      <div class="registration">
         <h1>Registration</h1>
         {/*
       The benefit of the render prop approach is that you have full access to React's

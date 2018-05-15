@@ -1,0 +1,44 @@
+* {
+box-sizing: border-box;
+}
+
+body {
+  color: $color-black;
+  font-family: $font-family-base;
+  size: $font-size-base;
+  line-height: $line-height-base;
+  background-color: rgb(243, 245, 248);
+}
+
+input, button {
+  outline: none;
+}
+
+b,
+strong {
+  font-weight: $font-weight-bold;
+}
+
+a,
+button,
+input[type='button'] {
+  cursor: pointer;
+}
+
+input {
+  border: none;
+  border-bottom: 1px solid gray;
+  margin-bottom: $m-sm;
+  padding: $m-xs 5px;
+
+  &:last-of-type {
+    margin-bottom: $m-lg;
+  }
+}
+
+button {
+  padding: $m-sm;
+  border: none;
+  color: $color-white;
+  background-color: $color-green;
+}
