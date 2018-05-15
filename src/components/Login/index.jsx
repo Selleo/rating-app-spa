@@ -19,23 +19,23 @@ class Login extends Component {
 
   render() {
     return (
-      <div class="wrapper">
-        <header class="header">
-          <div class="header__image" />
+      <div className="wrapper">
+        <header className="header">
+          <div className="header__image" />
 
-          <div class="header__title">
-            <div class="header__text">Haxorz Unconference</div>
-            <hr class="header__title_hr" />
-            <div class="header__counter">
-              Days: <span class="number">10</span> Hours:{" "}
-              <span class="number">6</span> Minutes:{" "}
-              <span class="number">4</span> Seconds:{" "}
-              <span class="number">27</span>
+          <div className="header__title">
+            <div className="header__text">Haxorz Unconference</div>
+            <hr className="header__title_hr" />
+            <div className="header__counter">
+              Days: <span className="number">10</span> Hours:{" "}
+              <span className="number">6</span> Minutes:{" "}
+              <span className="number">4</span> Seconds:{" "}
+              <span className="number">27</span>
             </div>
           </div>
         </header>
-        <div class="login">
-          <div class="login__container">
+        <div className="login">
+          <div className="login__container">
             <h2>Login</h2>
             <Formik
               initialValues={{
@@ -79,7 +79,7 @@ class Login extends Component {
                     value={values.email}
                   />
                   {touched.email &&
-                    errors.email && <div class="errors">{errors.email}</div>}
+                    errors.email && <div className="errors">{errors.email}</div>}
                   <input
                     className="login__input form__input"
                     type="password"
@@ -91,7 +91,7 @@ class Login extends Component {
                   />
                   {touched.password &&
                     errors.password && (
-                      <div class="errors">{errors.password}</div>
+                      <div className="errors">{errors.password}</div>
                     )}
                   <button type="submit" disabled={isSubmitting}>
                     Submit
