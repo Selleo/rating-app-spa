@@ -52,17 +52,17 @@ const validationSchema = yup.object({
 })
 
 const ItemForm = ({ saveItem, onItemSaved, initialValues }) => (
-  <div class="wrapper wrapper__presentation">
-    <header class="header">
-      <div class="header__image" />
+  <div className="wrapper wrapper__presentation">
+    <header className="header">
+      <div className="header__image" />
 
-      <div class="header__title">
-        <div class="header__text">Add workshop / presentation</div>
+      <div className="header__title">
+        <div className="header__text">Add workshop / presentation</div>
 
       </div>
     </header>
-    <div class="login">
-      <div class="login__container">
+    <div className="login">
+      <div className="login__container">
 
         <Formik
           initialValues={initialValues}
