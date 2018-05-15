@@ -1,5 +1,46 @@
 .wrapper {
   min-height: 100vh;
+
+  &__presentation {
+    .header {
+      min-height: 50vh;
+
+      &__image {
+        background: url('../assets/images/bg2.jpg') no-repeat 0 70%;
+        background-size: cover;
+      }
+    }
+
+    .login {
+      min-height: 50vh;
+
+      &__container {
+        width: 40%;
+
+        .input-text {
+          width: 100%;
+        }
+      }
+    }
+
+    input[type='radio']  {
+      width: 14px;
+      height: 14px;
+    }
+
+    label {
+      margin-right: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .topic {
+      flex-direction: column;
+      align-items: flex-start;
+      padding-top: 20px;
+      margin-right: 0;
+    }
+  }
 }
 
 .header {
