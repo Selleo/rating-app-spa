@@ -47,7 +47,6 @@ class Login extends Component {
                 actions.setSubmitting(true);
                 try {
                   const response = await client.post("/login", values);
-                  console.log("response", response);
                   this.props.storeUser(response.data);
                   this.props.push("/");
                 } catch (err) {

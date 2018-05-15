@@ -17,10 +17,13 @@ class ItemCreate extends PureComponent {
     }));
 
   handleSavedItem = item => {
-    axios.post("/items", { type: "item", arguments: item }).then(response => {
-      this.props.createItem(response.data);
-      this.props.push("/items");
-    });
+    console.log(item);
+    axios
+      .post("/items", { data: { type: "items", arguments: item } })
+      .then(response => {
+        this.props.createItem(response.data);
+        this.props.push("/items");
+      });
   };
 
   render() {
