@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import { Link } from 'react-router-dom'
+import React, { PureComponent } from "react";
+import { Link } from "react-router-dom";
 
 export default class Home extends PureComponent {
   render() {
@@ -10,6 +10,9 @@ export default class Home extends PureComponent {
         </div>
         <div>
           <Link to="/register">Register</Link>
+        </div>
+        <div>
+          <Link to="/private">Privat</Link>
         </div>
       </div>
     );

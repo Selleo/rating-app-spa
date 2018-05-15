@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { storeUser } from "../../store/user/actions";
 import PropTypes from "proptypes";
 import _ from "lodash";
+import Home from "./../Home";
 
 class Login extends Component {
   render() {
@@ -12,6 +13,7 @@ class Login extends Component {
       <div>
         <div>{_.get(this, "props.user.email")}</div>
         <h1>Login</h1>
+        <Home />
         <Formik
           initialValues={{
             email: "",
