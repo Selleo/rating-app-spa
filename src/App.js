@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
-import { Route, Redirect } from "react-router";
-import { Switch, withRouter } from "react-router-dom";
+import { Route } from "react-router";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Home from "./components/Home";
 import Login from "./components/Login";
@@ -8,23 +8,7 @@ import Registration from "./components/Registration";
 import Private from "./components/Private";
 import _ from "lodash";
 import "./App.css";
-
-const PrivateRoute = ({ component: Component, authenticated, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        authenticated ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{ pathname: "/login", state: { from: props.location } }}
-          />
-        )
-      }
-    />
-  );
-};
+import PrivateRoute from "./hocs/PrivateRoute";
 
 class App extends Component {
   render() {
