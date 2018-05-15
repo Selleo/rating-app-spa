@@ -13,9 +13,11 @@ import PrivateRoute from "./hocs/PrivateRoute";
 import "./App.css";
 
 global.axios = axios.create({
-  baseURL: "https://some-domain.com/api/",
+  baseURL: "http://192.168.1.44:3000/",
   timeout: 1000,
-  headers: { "X-Custom-Header": "foobar" }
+  headers: {
+    "Content-Type": "application/vnd.api+json"
+  }
 });
 
 class App extends Component {

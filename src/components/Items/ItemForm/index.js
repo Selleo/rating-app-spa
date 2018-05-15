@@ -58,12 +58,12 @@ const ItemForm = ({ saveItem, onItemSaved, initialValues }) => (
     onSubmit={async (values, actions) => {
       try {
         const response = await saveItem(values);
-        onItemSaved(response.data);
+        onItemSaved(response.data.item);
       } catch (err) {
         const { response = {} } = err;
 
         if (response.status === 422) {
-          actions.setError(err.response.data);
+          actions.setError(err.response.data.item);
         }
 
         console.error(err);
