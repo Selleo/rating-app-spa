@@ -9,6 +9,13 @@ import Private from "./components/Private";
 import _ from "lodash";
 import "./App.css";
 import PrivateRoute from "./hocs/PrivateRoute";
+import axios from "axios";
+
+global.axios = axios.create({
+  baseURL: "https://some-domain.com/api/",
+  timeout: 1000,
+  headers: { "X-Custom-Header": "foobar" }
+});
 
 class App extends Component {
   render() {

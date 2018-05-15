@@ -6,6 +6,7 @@ import { storeUser } from "../../store/user/actions";
 import PropTypes from "proptypes";
 import _ from "lodash";
 import Home from "./../Home";
+import axios from "axios";
 
 class Login extends Component {
   render() {
@@ -35,7 +36,10 @@ class Login extends Component {
             values,
             { setSubmitting, setErrors /* setValues and other goodies */ }
           ) => {
-            this.props.storeUser(values);
+            return axios
+              .post("/login", values)
+              .then(() => this.props.storeUser(values))
+              .catch(err => {});
           }}
           render={({
             values,
