@@ -7,10 +7,9 @@ body {
   font-family: $font-family-base;
   size: $font-size-base;
   line-height: $line-height-base;
-  background-color: rgb(243, 245, 248);
 }
 
-input, button {
+input, button, textarea {
   outline: none;
 }
 
@@ -25,15 +24,15 @@ input[type='button'] {
   cursor: pointer;
 }
 
+input[type='radio'] {
+  margin: 0 10px 0 0;
+}
+
 input {
   border: none;
   border-bottom: 1px solid gray;
   margin-bottom: $m-sm;
   padding: $m-xs 5px;
-
-  &:last-of-type {
-    margin-bottom: $m-lg;
-  }
 }
 
 button {

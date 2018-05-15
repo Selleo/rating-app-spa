@@ -22,7 +22,6 @@ class ItemCreate extends PureComponent {
   render() {
     return (
       <div>
-        <h1>Add new workshop/presentation</h1>
 
         <ItemForm
           saveItem={this.saveItem}
