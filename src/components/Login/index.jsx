@@ -47,7 +47,8 @@ class Login extends Component {
                 actions.setSubmitting(true);
                 try {
                   const response = await client.post("/login", values);
-                  this.props.storeUser(response.data.user);
+                  console.log("response", response);
+                  this.props.storeUser(response.data);
                   this.props.push("/");
                 } catch (err) {
                   const { response = {} } = err;
@@ -79,7 +80,9 @@ class Login extends Component {
                     value={values.email}
                   />
                   {touched.email &&
-                    errors.email && <div className="errors">{errors.email}</div>}
+                    errors.email && (
+                      <div className="errors">{errors.email}</div>
+                    )}
                   <input
                     className="login__input form__input"
                     type="password"

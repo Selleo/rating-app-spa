@@ -10,6 +10,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case t.STORE_USER: {
+      console.log(action.payload.token);
       axios.defaults.headers.common["Authorization"] = action.payload.token;
       return {
         ...state,
