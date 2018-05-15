@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import Registration from "./components/Registration";
 import Items from './components/Items';
 import Private from "./components/Private";
+import Agendas from './components/Agendas';
 import PrivateRoute from "./hocs/PrivateRoute";
 import "./App.css";
 
@@ -19,6 +20,7 @@ class App extends Component {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Registration} />
         <Route path="/items" component={Items} />
+        <Route path="/agendas" component={Agendas} />
         <PrivateRoute
           path="/private"
           component={Private}

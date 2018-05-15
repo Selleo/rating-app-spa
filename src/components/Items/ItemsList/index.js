@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getItems } from '../../../store/item/selectors';
-import Item from './Item'
+import Item from '../Item'
 
 export class ItemsList extends PureComponent {
   renderItemsList = () => {

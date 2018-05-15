@@ -17,6 +17,9 @@ export default class Home extends PureComponent {
         <div>
           <Link to="/items">Items list</Link>
         </div>
+        <div>
+          <Link to="/agendas">Agendas list</Link>
+        </div>
       </div>
     );
   }
