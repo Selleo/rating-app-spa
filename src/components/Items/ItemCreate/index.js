@@ -6,31 +6,25 @@ import { createItem } from "../../../store/item/actions";
 import axios from "../../../client";
 
 class ItemCreate extends PureComponent {
-  saveItem = values =>
-    Promise.resolve().then(() => ({
-      data: {
-        item: {
-          id: new Date().getTime(),
-          ...values
-        }
-      }
-    }));
+  saveItem = item => axios.post("/items", {
+    data: {
+      type: "items",
+      arguments: item
+    }
+  })
 
   handleSavedItem = item => {
-    console.log(item);
-    axios
-      .post("/items", { data: { type: "items", arguments: item } })
-      .then(response => {
-        this.props.createItem(response.data);
-        this.props.push("/items");
-      });
+    this.props.createItem(item);
+    this.props.push("/items");
   };
 
   render() {
     return (
       <div>
-
-        <ItemForm saveItem={this.saveItem} onItemSaved={this.handleSavedItem} />
+        <ItemForm
+          saveItem={this.saveItem}
+          onItemSaved={this.handleSavedItem}
+        />
       </div>
     );
   }
